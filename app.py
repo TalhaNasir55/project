@@ -1,8 +1,16 @@
+
 import streamlit as st
 import spacy
 
-# Load spaCy NLP model for NER
-nlp = spacy.load("en_core_web_sm")
+# Download spaCy model
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    st.warning("Downloading spaCy model. This may take some time.")
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
+# Rest of your Streamlit app code
 
 # Streamlit app
 def main():
